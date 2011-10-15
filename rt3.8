@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+    RewriteEngine On
+    RewriteRule ^/$ https://10.100.4.124/rt/
+    ServerName rt.motiva.com.br
+    ServerAdmin rt@motiva.com.br
+    ErrorLog /var/log/apache2/rt3.8-error.log
+    CustomLog /var/log/apache2/rt3.8-access.log combined
+
+    Include /etc/request-tracker3.8/apache2-modperl2.conf
+</VirtualHost>
