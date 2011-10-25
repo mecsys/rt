@@ -94,3 +94,44 @@ Set(@Plugins, qw(
 RT::Extension::SLA
 RT::Condition::SLA_RequireDefault
 ) ); 
+
+Set( %ServiceBusinessHours, (
+0 => { Name => 'Sunday',Start => 'undef', End => 'undef' },
+1 => { Name => 'Monday', Start => '09:00', End => '17:00' },
+2 => { Name => 'Tuesday', Start => '09:00', End => '17:00' },
+3 => { Name => 'Wednesday', Start => '09:00', End => '17:00' },
+4 => { Name => 'Thursday', Start => '09:00', End => '17:00' },
+5 => { Name => 'Friday', Start => '09:00', End => '17:00' },
+6 => { Name => 'Saturday', Start => 'undef', End => 'undef' },
+holidays => [qw(2009-02-16 2009-03-23 2009-03-24 2009-05-04 2009-12-28 2009-12-29)],));
+
+Set( %ServiceAgreements, (
+	Default => '2h',
+	QueueDefault => {
+		'redes' => 'Critical',
+	},
+	Levels => {
+		'2h' => { 
+			Response => { BusinessMinutes => 10 }, 
+			Resolve  => { RealMinutes => 60*2 },
+		},
+		'3h' => { 
+			Response => { BusinessMinutes => 30 }, 
+			Resolve  => { RealMinutes => 60*3 },
+		},
+		'4h' => { 
+			Response=> { BusinessMinutes => 60 },
+			Resolve  => { RealMinutes => 60*4 },
+		},
+		'5h' => { 
+			Repsonse=> { BusinessMinutes => 120 },
+			Resolve  => { RealMinutes => 60*5 },
+		},
+		'24/7' => {
+			StartImediately => 1,
+			Response => { RealMinutes => 30 },
+			Resolve  => { RealMinutes => 60*24 },
+		},
+
+	},
+)); 
